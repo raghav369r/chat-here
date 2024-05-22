@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: { local: '"Kanit"' },
+      colors: { bgprimary: "#e7e7f0" },
     },
   },
   plugins: [],
