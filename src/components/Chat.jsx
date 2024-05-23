@@ -5,7 +5,9 @@ import { FaPlus } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
+// eslint-disable-next-line react/prop-types
 const Chat = ({ ele }) => {
   const [data, setData] = useState([
     { r: "hi", time: "22:20" },
@@ -46,7 +48,7 @@ const Chat = ({ ele }) => {
   };
 
   return (
-    <div className="w-full flex flex-col h-[100vh]">
+    <div className="w-full flex flex-col h-[100vh] select-text">
       <div className="border-l border-neutral-300 flex justify-between bg-bgprimary p-2 h-fit items-center">
         <div className="flex items-center gap-4">
           <div className="size-10 rounded-full bg-neutral-300" />
@@ -78,5 +80,9 @@ const Chat = ({ ele }) => {
     </div>
   );
 };
+
+Chat.PropTypes={
+  ele:PropTypes.string
+}
 
 export default Chat;

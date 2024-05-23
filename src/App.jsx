@@ -5,8 +5,8 @@ import Home from "./components/Home";
 const App = () => {
   return (
     <div className="">
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <Routes >
+        <Route  path="/" element={<Home />} />
         <Route path="/hlo" element={<h1>hello</h1>} />
       </Routes>
     </div>

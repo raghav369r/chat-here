@@ -23,6 +23,6 @@
 .triangleg{
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-bottom: 12px solid rgb(61, 151, 73);
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid rgb(61, 151, 73);
 }
