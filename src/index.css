@@ -14,3 +14,15 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: #979494;
   }
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-bottom: 12px solid rgb(255, 255, 255);
+}
+.triangleg{
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-bottom: 12px solid rgb(61, 151, 73);
+}

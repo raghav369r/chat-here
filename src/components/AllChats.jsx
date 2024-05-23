@@ -8,7 +8,7 @@ import { useState } from "react";
 import Chat from "./Chat";
 
 const AllChats = () => {
-  const [cat, setCat] = useState(1);
+  const [cat, setCat] = useState(0);
   const [chat, setChat] = useState(-1);
   const data = [
     "Amma Nanna",
