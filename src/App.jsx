@@ -2,8 +2,10 @@
 import { Route, Routes } from "react-router-dom";
 import Loader from "./components/Loader";
 import Home from "./components/Home";
+import useSetTheme from "./hooks/useSetTheme";
 
 const App = () => {
+  useSetTheme();
   return (
     <div className="">
       <Routes>

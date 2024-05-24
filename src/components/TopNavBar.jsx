@@ -10,7 +10,7 @@ import { FaRegUser } from "react-icons/fa6";
 
 const TopNavbar = ({ menu, setMenu }) => {
   return (
-    <div className="flex w-full justify-between items-center p-2 bg-bgprimary ">
+    <div className="flex w-full justify-between items-center p-2 bg-bgprimary dark:bg-bghero">
       <div
         className="size-10 rounded-full bg-neutral-400 cursor-pointer flex-center"
         onClick={() => setMenu("profile")}

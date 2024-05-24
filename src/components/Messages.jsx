@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import propTypes from "prop-types";
+import Triangle from "./shared/Triangle";
 
 const Messages = ({ data }) => {
   const view = useRef(null);
@@ -7,12 +8,12 @@ const Messages = ({ data }) => {
     view?.current?.scrollIntoView({ behavior: "smooth" });
   }, [data]);
   return (
-    <div className="container px-8">
+    <div className="container px-8 dark:text-white">
       {data?.map((ele, ind) => (
         <div key={ind} className="flex">
-          {ele.r && <div className="triangle -rotate-90 mt-2 shadow-lg" />}
+          {ele.r && <Triangle />}
           {ele.r && (
-            <h1 className="relative rounded-lg rounded-tl-none px-3 py-2 pr-10 mr-auto max-w-[75%] bg-white shadow-md w-fit my-2">
+            <h1 className="relative rounded-lg rounded-tl-none px-3 py-2 pr-10 mr-auto max-w-[75%] bg-white dark:bg-bghero shadow-md w-fit my-2">
               {ele?.r}
               <span className="absolute bottom-0 right-0 m-1 text-xs text-gray-700 ">
                 {ele.time}

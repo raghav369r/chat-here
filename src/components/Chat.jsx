@@ -48,7 +48,7 @@ const Chat = ({ ele }) => {
 
   return (
     <div className="w-full flex flex-col h-[100vh] select-text">
-      <div className="border-l border-neutral-300 flex justify-between bg-bgprimary p-2 h-fit items-center">
+      <div className="flex justify-between bg-bgprimary dark:bg-bghero dark:text-white p-2 h-fit items-center">
         <div className="flex items-center gap-4">
           <div className="size-10 rounded-full bg-neutral-300 flex-center">
             <FaRegUser color="gray" className="size-6 opacity-50" />
@@ -60,16 +60,16 @@ const Chat = ({ ele }) => {
           <BsThreeDotsVertical className="size-6" />
         </div>
       </div>
-      <div className="h-full bg-neutral-100 overflow-y-scroll">
+      <div className="h-full bg-neutral-100 dark:bg-bgdarkgreen overflow-y-scroll">
         <Messages data={data} />
       </div>
-      <div className="flex w-full gap-4 p-2">
+      <div className="flex w-full gap-4 p-2 dark:bg-bghero">
         <FaPlus className="size-10 p-2" color="gray" />
         <BsEmojiSmile className="size-10 p-2" color="gray" />
         <input
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
-          className="px-4 py-2 bg-white outline-none rounded-lg w-full"
+          className="px-4 py-2 bg-white dark:bg-gray-600 dark:text-white outline-none rounded-lg w-full"
           placeholder="Enter your message"
         />
         <IoMdSend

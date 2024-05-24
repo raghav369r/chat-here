@@ -7,8 +7,8 @@ import { FaRegUser } from "react-icons/fa6";
 
 const Profile = ({ setMenu }) => {
   return (
-    <div className="z-10 absolute top-0 left-0 w-full h-full flex flex-col bg-white border-r border-gray-100">
-      <div className="h-[18vh] bg-green-600 flex p-5">
+    <div className="z-10 absolute top-0 left-0 w-full h-full flex flex-col dark:text-white bg-white dark:bg-bgchat border-r border-gray-600">
+      <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
         <div
           className="flex gap-5 items-end cursor-pointer"
           onClick={() => setMenu("")}
@@ -17,7 +17,7 @@ const Profile = ({ setMenu }) => {
           <h1 className="font-semibold text-white text-lg">Profile</h1>
         </div>
       </div>
-      <div className="bg-bgprimary p-5 flex justify-center">
+      <div className="bg-bgprimary dark:bg-bgchat p-5 flex justify-center ">
         <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex-center">
           <FaRegUser color="gray" className="size-28 opacity-45" />
           <div className="hidden absolute group-hover:flex flex-col justify-center items-center size-full">
@@ -35,7 +35,7 @@ const Profile = ({ setMenu }) => {
           <MdEdit className="size-5" color="gray" />
         </div>
       </div>
-      <div className="p-5 bg-bgprimary">
+      <div className="p-5 bg-bgprimary dark:bg-bgchat">
         This is not your username or pin.This name is visible to your contacts.
       </div>
       <div className="px-5 py-3 shadow-md">
