@@ -1,13 +1,12 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { IoMdSend } from "react-icons/io";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
 const Chat = ({ ele }) => {
   const [data, setData] = useState([
     { r: "hi", time: "22:20" },
@@ -51,7 +50,9 @@ const Chat = ({ ele }) => {
     <div className="w-full flex flex-col h-[100vh] select-text">
       <div className="border-l border-neutral-300 flex justify-between bg-bgprimary p-2 h-fit items-center">
         <div className="flex items-center gap-4">
-          <div className="size-10 rounded-full bg-neutral-300" />
+          <div className="size-10 rounded-full bg-neutral-300 flex justify-center items-center">
+            <FaRegUser color="gray" className="size-6 opacity-50" />
+          </div>
           <h1>{ele}</h1>
         </div>
         <div className="flex gap-5 px-4">
@@ -81,8 +82,8 @@ const Chat = ({ ele }) => {
   );
 };
 
-Chat.PropTypes={
-  ele:PropTypes.string
-}
+Chat.propTypes = {
+  ele: propTypes.string,
+};
 
 export default Chat;

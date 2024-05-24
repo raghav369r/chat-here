@@ -2,6 +2,8 @@ import { IoMdArrowBack } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import { MdExitToApp } from "react-icons/md";
+import propTypes from "prop-types";
+import { FaRegUser } from "react-icons/fa6";
 
 const Profile = ({ setMenu }) => {
   return (
@@ -16,8 +18,9 @@ const Profile = ({ setMenu }) => {
         </div>
       </div>
       <div className="bg-bgprimary p-5 flex justify-center">
-        <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer">
-          <div className="hidden group-hover:flex flex-col justify-center items-center size-full">
+        <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex justify-center items-center">
+          <FaRegUser color="gray" className="size-28 opacity-45" />
+          <div className="hidden absolute group-hover:flex flex-col justify-center items-center size-full">
             <FaCamera color="white" className="size-8" />
             <h1 className="text-center text-sm text-white">
               CHANGE PROFILE PHOTO
@@ -42,12 +45,19 @@ const Profile = ({ setMenu }) => {
           <MdEdit className="size-5" color="gray" />
         </div>
       </div>
-      <div className="m-5 flex items-center gap-5 cursor-pointer font-semibold text-red-600">
-        <MdExitToApp className="size-6"/>
+      <a
+        href="/"
+        className="m-5 flex items-center gap-5 cursor-pointer font-semibold text-red-600"
+      >
+        <MdExitToApp className="size-6" />
         <h1>Log out</h1>
-      </div>
+      </a>
     </div>
   );
+};
+
+Profile.propTypes = {
+  setMenu: propTypes.func,
 };
 
 export default Profile;

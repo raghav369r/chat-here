@@ -1,15 +1,12 @@
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoIosPeople } from "react-icons/io";
-import { CgMenuRound } from "react-icons/cg";
-import { BsChatDots } from "react-icons/bs";
-import { TbNewSection } from "react-icons/tb";
 import { IoSearch } from "react-icons/io5";
 import { useState } from "react";
+import { FaRegUser } from "react-icons/fa6";
 import Chat from "./Chat";
 import Status from "./Status";
 import Profile from "./Profile";
 import Settings from "./Settings";
-import Menu from "./Menu";
+import Hero from "./Hero";
+import TopNavbar from "./TopNavBar";
 
 const AllChats = () => {
   const [cat, setCat] = useState(0);
@@ -61,12 +58,14 @@ const AllChats = () => {
             <div
               key={ind}
               className={
-                "border-t py-2 " + (chat === ind ? "bg-neutral-100" : "")
+                "border-t py-2 hover:bg-neutral-100 bg-opacity-75 " + (chat === ind ? "bg-bgprimary" : "")
               }
             >
               <div className="flex gap-4 items-center">
                 <div className="w-16">
-                  <div className="size-14 bg-neutral-300 rounded-full cursor-pointer" />
+                  <div className="size-14 bg-neutral-300 rounded-full cursor-pointer flex justify-center items-center " >
+                    <FaRegUser color="gray" className="size-8 opacity-50"/>
+                  </div>
                 </div>
                 <div
                   className="p-1 cursor-pointer w-full"
@@ -83,53 +82,12 @@ const AllChats = () => {
           ))}
         </div>
       </div>
-      <div className="w-full h-full bg-bgprimary">
+      <div className="w-full h-full bg-bgprimary ">
         {chat !== -1 && <Chat ele={data[chat]} />}
+        {chat == -1 && <Hero />}
       </div>
     </div>
   );
 };
 
 export default AllChats;
-
-// eslint-disable-next-line react/prop-types
-const TopNavbar = ({ menu, setMenu }) => {
-  return (
-    <div className="flex w-full justify-between items-center p-2 bg-bgprimary ">
-      <div
-        className="size-10 rounded-full bg-neutral-400"
-        onClick={() => setMenu("profile")}
-      />
-      <div className="flex gap-5 items-center ">
-        <IoIosPeople
-          className="size-6"
-          color="gray"
-          onClick={() => setMenu(menu === "" ? "community" : "")}
-        />
-        <CgMenuRound
-          className="size-6"
-          color="gray"
-          onClick={() => setMenu(menu === "" ? "status" : "")}
-        />
-        <BsChatDots
-          className="size-6"
-          color="gray"
-          onClick={() => setMenu(menu === "" ? "channels" : "")}
-        />
-        <TbNewSection
-          className="size-6"
-          color="gray"
-          onClick={() => setMenu(menu === "" ? "new" : "")}
-        />
-        <div className="relative">
-          <BsThreeDotsVertical
-            className="size-6"
-            color="gray"
-            onClick={() => setMenu(menu === "" ? "menu" : "")}
-          />
-          {menu === "menu" && <Menu setMenu={setMenu}/>}
-        </div>
-      </div>
-    </div>
-  );
-};

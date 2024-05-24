@@ -1,3 +1,5 @@
+import propTypes from "prop-types";
+
 const Menu = ({ setMenu }) => {
   return (
     <div className="z-10 absolute top-full mt-1 min-w-[200px] right-0  bg-white rounded-md shadow-lg">
@@ -20,12 +22,19 @@ const Menu = ({ setMenu }) => {
         >
           Settings
         </li>
-        <li className="cursor-pointer px-5 py-2 w-full hover:bg-bgprimary">
+        <a
+          href="/"
+          className="cursor-pointer px-5 py-2 w-full hover:bg-bgprimary"
+        >
           Logout
-        </li>
+        </a>
       </ul>
     </div>
   );
+};
+
+Menu.propTypes = {
+  setMenu: propTypes.func,
 };
 
 export default Menu;

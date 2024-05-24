@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 
 const Messages = ({ data }) => {
   const view = useRef(null);
@@ -38,7 +38,7 @@ const Messages = ({ data }) => {
 };
 
 Messages.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.string),
+  data: propTypes.arrayOf(propTypes.string),
 };
 
 export default Messages;

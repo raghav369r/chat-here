@@ -26,3 +26,12 @@
   border-left: 10px solid transparent;
   border-bottom: 10px solid rgb(61, 151, 73);
 }
+
+@keyframes pulse {
+  50% {
+      opacity: .3;
+  }
+}
+.anim-pulse {
+  animation: pulse 2s linear infinite;
+}
