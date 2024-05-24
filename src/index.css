@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .flex-center-x {
+    @apply flex justify-center;
+  }
+  .flex-center-y {
+    @apply flex items-center;
+  }
+
+
+}
+
+
 
 ::-webkit-scrollbar {
     width: 4px; /* Adjust the width as needed */

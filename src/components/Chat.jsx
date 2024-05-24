@@ -50,7 +50,7 @@ const Chat = ({ ele }) => {
     <div className="w-full flex flex-col h-[100vh] select-text">
       <div className="border-l border-neutral-300 flex justify-between bg-bgprimary p-2 h-fit items-center">
         <div className="flex items-center gap-4">
-          <div className="size-10 rounded-full bg-neutral-300 flex justify-center items-center">
+          <div className="size-10 rounded-full bg-neutral-300 flex-center">
             <FaRegUser color="gray" className="size-6 opacity-50" />
           </div>
           <h1>{ele}</h1>

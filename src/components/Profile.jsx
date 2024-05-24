@@ -18,7 +18,7 @@ const Profile = ({ setMenu }) => {
         </div>
       </div>
       <div className="bg-bgprimary p-5 flex justify-center">
-        <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex justify-center items-center">
+        <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex-center">
           <FaRegUser color="gray" className="size-28 opacity-45" />
           <div className="hidden absolute group-hover:flex flex-col justify-center items-center size-full">
             <FaCamera color="white" className="size-8" />

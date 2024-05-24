@@ -63,7 +63,7 @@ const AllChats = () => {
             >
               <div className="flex gap-4 items-center">
                 <div className="w-16">
-                  <div className="size-14 bg-neutral-300 rounded-full cursor-pointer flex justify-center items-center " >
+                  <div className="size-14 bg-neutral-300 rounded-full cursor-pointer flex-center " >
                     <FaRegUser color="gray" className="size-8 opacity-50"/>
                   </div>
                 </div>

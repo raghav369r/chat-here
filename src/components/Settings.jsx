@@ -24,7 +24,7 @@ const Settings = ({ setMenu }) => {
         />
       </div>
       <div className="flex items-center p-3 gap-4">
-        <div className="relative group size-24 bg-neutral-300 rounded-full flex justify-center items-center cursor-pointer">
+        <div className="relative group size-24 bg-neutral-300 rounded-full flex-center cursor-pointer">
           <FaRegUser color="gray" className="size-16 opacity-45" />
           <FaCamera
             color="white"

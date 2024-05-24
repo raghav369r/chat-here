@@ -12,7 +12,7 @@ const TopNavbar = ({ menu, setMenu }) => {
   return (
     <div className="flex w-full justify-between items-center p-2 bg-bgprimary ">
       <div
-        className="size-10 rounded-full bg-neutral-400 cursor-pointer flex justify-center items-center"
+        className="size-10 rounded-full bg-neutral-400 cursor-pointer flex-center"
         onClick={() => setMenu("profile")}
       >
         <FaRegUser color="gray" className="size-6 opacity-50" />
