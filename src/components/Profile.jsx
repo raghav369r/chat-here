@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../context";
 
 const Profile = ({ setMenu }) => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full flex flex-col dark:text-white bg-white dark:bg-bgchat border-r border-gray-600">
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
@@ -35,7 +35,7 @@ const Profile = ({ setMenu }) => {
       <div className="px-5 py-3 shadow-lg">
         <h1 className="text-green-800 text-sm pb-2 ">Your name</h1>
         <div className="flex justify-between items-center">
-          <h1>Raghav</h1>
+          <h1>{user.name}</h1>
           <MdEdit className="size-5" color="gray" />
         </div>
       </div>

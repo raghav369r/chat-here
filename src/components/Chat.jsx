@@ -5,33 +5,40 @@ import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { userMessages } from "../../graphql/quaries";
+import { sendMessage } from "../../graphql/mutations";
 
 const Chat = ({ ele }) => {
-  const { data, loading, error } = useQuery(userMessages, {
+  const { data, loading, error, refetch } = useQuery(userMessages, {
     variables: { messagesByUserId: ele.id },
   });
-  console.log(data);
-  console.log(ele.id)
+  const [sendmsg, { data: msgData, error: msgError, loading: msgLoading }] =
+    useMutation(sendMessage, {
+      onCompleted(data) {
+        refetch({ messagesByUserId: ele.id });
+      },
+    });
   const [msg, setMsg] = useState("");
+  const handleSend = async () => {
+    if (!msg) return;
+    const res = await sendmsg({
+      variables: { newMsg: { message: msg, receiverId: ele.id } },
+    });
+    console.log("res: ", res);
+    setMsg("");
+  };
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
         if (msg) {
-          setMsg("");
+          handleSend();
         }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [msg]);
-
-  const handleSend = () => {
-    if (msg) {
-      setMsg("");
-    }
-  };
+  }, [handleSend]);
 
   return (
     <div className="w-full flex flex-col h-[100vh] select-text">
