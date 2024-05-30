@@ -11,7 +11,7 @@ const Messages = ({ data }) => {
     <div className="container px-8 dark:text-white">
       {data?.map((ele, ind) => (
         <div key={ind} className="flex">
-          {ele.r && <Triangle />}
+          {!(data?.[ind-1]?.r) && ele.r && <Triangle />}
           {ele.r && (
             <h1 className="relative rounded-lg rounded-tl-none px-3 py-2 pr-10 mr-auto max-w-[75%] bg-white dark:bg-bghero shadow-md w-fit my-2">
               {ele?.r}
@@ -28,7 +28,7 @@ const Messages = ({ data }) => {
               </span>
             </h1>
           )}
-          {ele.s && (
+          {!(data?.[ind-1]?.s) && ele.s && (
             <div className="triangleg mt-auto -translate-y-2 rotate-90 shadow-lg" />
           )}
         </div>

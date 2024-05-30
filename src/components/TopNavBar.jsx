@@ -21,28 +21,28 @@ const TopNavbar = ({ menu, setMenu }) => {
         <IoIosPeople
           className="size-8 cursor-pointer"
           color="gray"
-          onClick={() => setMenu(menu === "" ? "community" : "")}
+          onClick={() => setMenu("community")}
         />
         <TbCircleDashed
           className="size-7 cursor-pointer"
           color="gray"
-          onClick={() => setMenu(menu === "" ? "status" : "")}
+          onClick={() => setMenu("status")}
         />
         <LuMessageSquarePlus
           className="size-6 cursor-pointer"
           color="gray"
-          onClick={() => setMenu(menu === "" ? "channels" : "")}
+          onClick={() => setMenu("channels")}
         />
         <IoMdSettings
           className="size-6 cursor-pointer"
           color="gray"
-          onClick={() => setMenu(menu === "" ? "settings" : "")}
+          onClick={() => setMenu("settings")}
         />
         <div className="relative">
           <BsThreeDotsVertical
             className="size-6 cursor-pointer"
             color="gray"
-            onClick={() => setMenu(menu === "" ? "menu" : "")}
+            onClick={() => setMenu("menu")}
           />
           {menu === "menu" && <Menu setMenu={setMenu} />}
         </div>

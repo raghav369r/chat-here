@@ -51,7 +51,7 @@ const AllChats = () => {
             </button>
           ))}
         </div>
-        <hr className="border-gray-800"/>
+        <hr className="dark:border-gray-800"/>
         <div className="px-2 flex flex-col h-full overflow-y-scroll">
           <div className="flex w-full py-2 dark:text-white">Archived</div>
           {data.map((ele, ind) => (
@@ -72,7 +72,6 @@ const AllChats = () => {
                   className="p-1 cursor-pointer w-full"
                   onClick={() => {
                     setChat(ind);
-                    setMenu("");
                   }}
                 >
                   <h1 className="font-semibold text-neutral-600 dark:text-white">

@@ -9,7 +9,7 @@ import { useState } from "react";
 const Settings = ({ setMenu }) => {
   const [theme, setTheme] = useState(false);
   return (
-    <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col">
+    <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col ">
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
         <div
           className="flex gap-5 items-end cursor-pointer"
