@@ -4,8 +4,12 @@ import { FaCamera } from "react-icons/fa";
 import { MdExitToApp } from "react-icons/md";
 import propTypes from "prop-types";
 import { FaRegUser } from "react-icons/fa6";
+import { removeJwt } from "../services/local";
+import { useContext } from "react";
+import { UserContext } from "../context";
 
 const Profile = ({ setMenu }) => {
+  const { setUser } = useContext(UserContext);
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full flex flex-col dark:text-white bg-white dark:bg-bgchat border-r border-gray-600">
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
@@ -45,13 +49,16 @@ const Profile = ({ setMenu }) => {
           <MdEdit className="size-5" color="gray" />
         </div>
       </div>
-      <a
-        href="/"
+      <div
+        onClick={() => {
+          removeJwt();
+          setUser(null);
+        }}
         className="m-5 flex items-center gap-5 cursor-pointer font-semibold text-red-600"
       >
         <MdExitToApp className="size-6" />
         <h1>Log out</h1>
-      </a>
+      </div>
     </div>
   );
 };

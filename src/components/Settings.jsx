@@ -4,9 +4,12 @@ import { IoSearch } from "react-icons/io5";
 import { FaCamera, FaRegUser } from "react-icons/fa6";
 import propTypes from "prop-types";
 import Theme from "./shared/Theme";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { removeJwt } from "../services/local";
+import { UserContext } from "../context/index";
 
 const Settings = ({ setMenu }) => {
+  const { setUser } = useContext(UserContext);
   const [theme, setTheme] = useState(false);
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col ">
@@ -56,13 +59,16 @@ const Settings = ({ setMenu }) => {
             {theme && <Theme />}
           </li>
         </ul>
-        <a
-          href="/"
+        <div
+          onClick={() => {
+            removeJwt();
+            setUser(null);
+          }}
           className="m-5 flex items-center gap-5 cursor-pointer font-semibold text-red-600"
         >
           <MdExitToApp className="size-6" />
           <h1>Log out</h1>
-        </a>
+        </div>
       </div>
     </div>
   );

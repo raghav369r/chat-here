@@ -5,32 +5,20 @@ import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import propTypes from "prop-types";
+import { useQuery } from "@apollo/client";
+import { userMessages } from "../../graphql/quaries";
 
 const Chat = ({ ele }) => {
-  const [data, setData] = useState([
-    { r: "hi", time: "22:20" },
-    { s: "hlo", time: "22:20" },
-    { s: "How are u doing", time: "22:20" },
-    { r: "fine what about u", time: "22:20" },
-    { s: "all good", time: "22:20" },
-    { r: "how is your preparation going for placements", time: "22:20" },
-    { r: "any suggestions for learning AR&CS", time: "22:20" },
-    { r: "hi", time: "22:20" },
-    { s: "hlo", time: "22:20" },
-    { s: "How are u doing", time: "22:20" },
-    { r: "fine what about u", time: "22:20" },
-    { s: "all good", time: "22:20" },
-    { r: "how is your preparation going for placements", time: "22:20" },
-    { r: "any suggestions for learning AR&CS", time: "22:20" },
-  ]);
-
+  const { data, loading, error } = useQuery(userMessages, {
+    variables: { messagesByUserId: ele.id },
+  });
+  console.log(data);
+  console.log(ele.id)
   const [msg, setMsg] = useState("");
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
         if (msg) {
-          setData((prev) => [...prev, { s: msg }]);
           setMsg("");
         }
       }
@@ -41,7 +29,6 @@ const Chat = ({ ele }) => {
 
   const handleSend = () => {
     if (msg) {
-      setData((prev) => [...prev, { s: msg }]);
       setMsg("");
     }
   };
@@ -53,7 +40,7 @@ const Chat = ({ ele }) => {
           <div className="size-10 rounded-full bg-neutral-300 flex-center">
             <FaRegUser color="gray" className="size-6 opacity-50" />
           </div>
-          <h1>{ele}</h1>
+          <h1>{ele.firstName}</h1>
         </div>
         <div className="flex gap-5 px-4">
           <CiSearch className="size-6" />
@@ -61,7 +48,7 @@ const Chat = ({ ele }) => {
         </div>
       </div>
       <div className="h-full bg-neutral-100 dark:bg-bgdarkgreen overflow-y-scroll">
-        <Messages data={data} />
+        <Messages data={data?.msgs} />
       </div>
       <div className="flex w-full gap-4 p-2 dark:bg-bghero">
         <FaPlus className="size-10 p-2" color="gray" />
@@ -80,10 +67,6 @@ const Chat = ({ ele }) => {
       </div>
     </div>
   );
-};
-
-Chat.propTypes = {
-  ele: propTypes.string,
 };
 
 export default Chat;

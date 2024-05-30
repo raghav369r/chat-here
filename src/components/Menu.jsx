@@ -1,8 +1,12 @@
 import propTypes from "prop-types";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { UserContext } from "../context/index";
+import { removeJwt } from "../services/local";
 
 const Menu = ({ setMenu }) => {
+  const { setUser } = useContext(UserContext);
   const menuRef = useRef(null);
+
   useEffect(() => {
     const handleClick = (event) => {
       menuRef.current &&
@@ -36,12 +40,15 @@ const Menu = ({ setMenu }) => {
         >
           Settings
         </li>
-        <a
-          href="/"
+        <li
+          onClick={() => {
+            removeJwt();
+            setUser(null);
+          }}
           className="cursor-pointer px-5 py-2 w-full hover:bg-bgprimary dark:hover:bg-bgchat"
         >
           Logout
-        </a>
+        </li>
       </ul>
     </div>
   );

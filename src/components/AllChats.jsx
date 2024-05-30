@@ -7,21 +7,14 @@ import Profile from "./Profile";
 import Settings from "./Settings";
 import Hero from "./Hero";
 import TopNavbar from "./TopNavBar";
+import { useQuery } from "@apollo/client";
+import { getAllUsers } from "../../graphql/quaries";
 
 const AllChats = () => {
   const [cat, setCat] = useState(0);
   const [chat, setChat] = useState(-1);
   const [menu, setMenu] = useState("");
-  const data = [
-    "Amma Nanna",
-    "CSE_3F",
-    "Akka",
-    "Babai",
-    "Ajju IIIT",
-    "ABD Ben",
-    "Virat Kohli",
-    "Cam Green",
-  ];
+  const { data, error, loading } = useQuery(getAllUsers);
   const category = ["All", "Unread", "Groups"];
   return (
     <div className="flex h-[100vh] select-none bg-white dark:bg-bgchat">
@@ -51,10 +44,10 @@ const AllChats = () => {
             </button>
           ))}
         </div>
-        <hr className="dark:border-gray-800"/>
+        <hr className="dark:border-gray-800" />
         <div className="px-2 flex flex-col h-full overflow-y-scroll">
           <div className="flex w-full py-2 dark:text-white">Archived</div>
-          {data.map((ele, ind) => (
+          {data?.users?.map((ele, ind) => (
             <div
               key={ind}
               className={
@@ -75,7 +68,7 @@ const AllChats = () => {
                   }}
                 >
                   <h1 className="font-semibold text-neutral-600 dark:text-white">
-                    {ele}
+                    {ele.firstName}
                   </h1>
                   <p className="text-sm text-neutral-500">some message</p>
                 </div>
@@ -85,7 +78,7 @@ const AllChats = () => {
         </div>
       </div>
       <div className="w-full h-full bg-bgprimary ">
-        {chat !== -1 && <Chat ele={data[chat]} />}
+        {chat !== -1 && <Chat ele={data?.users[chat]} />}
         {chat == -1 && <Hero />}
       </div>
     </div>
