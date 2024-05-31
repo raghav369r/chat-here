@@ -5,9 +5,10 @@ import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import { userMessages } from "../../graphql/quaries";
 import { sendMessage } from "../../graphql/mutations";
+import { SUB_MESSAGE } from "../../graphql/subscription";
 
 const Chat = ({ ele }) => {
   const { data, loading, error, refetch } = useQuery(userMessages, {
@@ -16,16 +17,21 @@ const Chat = ({ ele }) => {
   const [sendmsg, { data: msgData, error: msgError, loading: msgLoading }] =
     useMutation(sendMessage, {
       onCompleted(data) {
-        refetch({ messagesByUserId: ele.id });
+        // console.log("sent");
+        // refetch({ messagesByUserId: ele.id });
       },
     });
+  const { data: subData } = useSubscription(SUB_MESSAGE, {
+    onData: (data) => refetch({ messagesByUserId: ele.id }),
+  });
+
   const [msg, setMsg] = useState("");
   const handleSend = async () => {
     if (!msg) return;
     const res = await sendmsg({
       variables: { newMsg: { message: msg, receiverId: ele.id } },
     });
-    console.log("res: ", res);
+    // console.log("res: ", res);
     setMsg("");
   };
   useEffect(() => {
