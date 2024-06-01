@@ -5,27 +5,13 @@ import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import { useMutation, useQuery, useSubscription } from "@apollo/client";
-import { userMessages } from "../../graphql/quaries";
-import { sendMessage } from "../../graphql/mutations";
-import { SUB_MESSAGE } from "../../graphql/subscription";
+import useGetUserChat from "../hooks/useGetUserChat";
 
 const Chat = ({ ele }) => {
-  const { data, loading, error, refetch } = useQuery(userMessages, {
-    variables: { messagesByUserId: ele.id },
-  });
-  const [sendmsg, { data: msgData, error: msgError, loading: msgLoading }] =
-    useMutation(sendMessage, {
-      onCompleted(data) {
-        // console.log("sent");
-        // refetch({ messagesByUserId: ele.id });
-      },
-    });
-  const { data: subData } = useSubscription(SUB_MESSAGE, {
-    onData: (data) => refetch({ messagesByUserId: ele.id }),
-  });
+  const [messages, setMessages, sendmsg] = useGetUserChat({ ele });
 
   const [msg, setMsg] = useState("");
+
   const handleSend = async () => {
     if (!msg) return;
     const res = await sendmsg({
@@ -61,7 +47,7 @@ const Chat = ({ ele }) => {
         </div>
       </div>
       <div className="h-full bg-neutral-100 dark:bg-bgdarkgreen overflow-y-scroll">
-        <Messages data={data?.msgs} />
+        <Messages data={messages} />
       </div>
       <div className="flex w-full gap-4 p-2 dark:bg-bghero">
         <FaPlus className="size-10 p-2" color="gray" />

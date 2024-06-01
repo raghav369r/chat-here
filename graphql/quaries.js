@@ -7,6 +7,19 @@ export const signInUser = gql`
     }
   }
 `;
+export const getUser = gql`
+  query Query($getUserId: ID!) {
+    getUser(id: $getUserId) {
+      id
+      firstName
+      lastName
+      email
+      createdAt
+      about
+      profileURL
+    }
+  }
+`;
 
 export const getAllUsers = gql`
   query GetAllUsers {
