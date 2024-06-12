@@ -1,15 +1,28 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getUser, signInUser } from "../../../graphql/quaries";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { UserContext } from "../../context";
-import { decodeToken, setJwt } from "../../services/local";
+import { decodeToken, getJwt, setJwt } from "../../services/local";
 import { registerUser } from "../../../graphql/mutations";
+import StartPage from "../StartPage";
 
 const Login = () => {
   const { user, setUser } = useContext(UserContext);
   const [isLogin, setIsLogin] = useState(true);
+  const [isloading, setIsLoading] = useState(false);
+  useEffect(() => {
+    var id;
+    if (getJwt()) {
+      setIsLoading(true);
+      id = setTimeout(() => setIsLoading(false), 3000);
+    }
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+
   const [valError, setValError] = useState("");
-  const [getuser] = useLazyQuery(getUser, {
+  const [getuser, { loading: uloading }] = useLazyQuery(getUser, {
     onCompleted: (data) => setUser({ ...data.getUser }),
   });
   const addUser = async (token) => {
@@ -57,6 +70,7 @@ const Login = () => {
       });
     }
   };
+  if (uloading || isloading) return <StartPage />;
   return (
     <div className="w-screen h-[100dvh] flex justify-center items-center">
       <form className="p-8 bg-slate-400 flex flex-col gap-4 w-[500px]">

@@ -63,7 +63,7 @@ const Profile = ({ setMenu }) => {
             {!name.show && <h1>{name.name}</h1>}
             {name.show && (
               <input
-                className="text-black bg-inherit px-2 py-1 dark:text-white outline-none"
+                className="text-black bg-inherit px-2 py-1 dark:text-white outline-none border-b-2 focus:border-green-700"
                 autoFocus
                 type="text"
                 value={name.name}
@@ -89,7 +89,7 @@ const Profile = ({ setMenu }) => {
             {!about.show && <h1>{about.about}</h1>}
             {about.show && (
               <input
-                className="text-black bg-inherit dark:text-white outline-none"
+                className="text-black bg-inherit dark:text-white outline-none border-b-2 focus:border-green-700"
                 type="text"
                 value={about.about}
                 autoFocus

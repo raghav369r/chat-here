@@ -30,7 +30,9 @@ const useGetUserChat = ({ ele: user }) => {
 
   const [sendmsg, { data: msgData, error: msgError, loading: msgLoading }] =
     useMutation(sendMessage, {
-      onCompleted(data) {
+      onCompleted:async (data)=>{
+        // const res=await refetch({ variables: { messagesByUserId: user.id } });
+        // setMessages(res?.data.msgs);
       },
     });
   return [messages, setMessages, sendmsg];
