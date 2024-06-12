@@ -9,6 +9,7 @@ import Hero from "./Hero";
 import TopNavbar from "./TopNavBar";
 import { useQuery } from "@apollo/client";
 import { getAllUsers } from "../../graphql/quaries";
+import NewChat from "./NewChat";
 
 const AllChats = () => {
   const [cat, setCat] = useState(0);
@@ -22,6 +23,7 @@ const AllChats = () => {
         {menu === "status" && <Status setMenu={setMenu} />}
         {menu === "profile" && <Profile setMenu={setMenu} />}
         {menu === "settings" && <Settings setMenu={setMenu} />}
+        {menu === "newchat" && <NewChat setMenu={setMenu} />}
         <TopNavbar menu={menu} setMenu={setMenu} />
         <div className="m-2 flex bg-bgprimary dark:bg-bghero rounded-lg items-center px-2">
           <IoSearch color="gray" className="ml-2" />
@@ -81,6 +83,7 @@ const AllChats = () => {
         {chat !== -1 && <Chat ele={data?.users[chat]} />}
         {chat == -1 && <Hero />}
       </div>
+      <div className="absolute bottom-5 right-5"> </div>
     </div>
   );
 };

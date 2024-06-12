@@ -31,7 +31,7 @@ const TopNavbar = ({ menu, setMenu }) => {
         <LuMessageSquarePlus
           className="size-6 cursor-pointer"
           color="gray"
-          onClick={() => setMenu("channels")}
+          onClick={() => setMenu("newchat")}
         />
         <IoMdSettings
           className="size-6 cursor-pointer"
