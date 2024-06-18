@@ -1,5 +1,11 @@
 import { gql } from "@apollo/client";
 
+export const typing = gql`
+  mutation Mutation($receiverId: ID!, $istyping: Boolean!) {
+    isTyping(receiverId: $receiverId, istyping: $istyping)
+  }
+`;
+
 export const registerUser = gql`
   mutation Mutation($newUser: NewUser!) {
     data: registerUser(newUser: $newUser) {

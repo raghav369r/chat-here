@@ -11,3 +11,12 @@ export const SUB_MESSAGE = gql`
     }
   }
 `;
+export const SUB_TYPING = gql`
+  subscription Typing($sender: ID!, $receiver: ID!) {
+    typing(sender: $sender, receiver: $receiver) {
+      istyping
+      receiverId
+      senderId
+    }
+  }
+`;

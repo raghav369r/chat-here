@@ -7,15 +7,15 @@ import Profile from "./Profile";
 import Settings from "./Settings";
 import Hero from "./Hero";
 import TopNavbar from "./TopNavBar";
-import { useQuery } from "@apollo/client";
-import { getAllUsers } from "../../graphql/quaries";
 import NewChat from "./NewChat";
+import useGetAllInteractions from "../hooks/useGetAllInteractions";
 
 const AllChats = () => {
   const [cat, setCat] = useState(0);
   const [chat, setChat] = useState(-1);
   const [menu, setMenu] = useState("");
-  const { data, error, loading } = useQuery(getAllUsers);
+  const { contacts } = useGetAllInteractions();
+  // const { contacts, error, loading } = useQuery(getAllUsers);
   const category = ["All", "Unread", "Groups"];
   return (
     <div className="flex h-[100vh] select-none bg-white dark:bg-bgchat">
@@ -49,7 +49,7 @@ const AllChats = () => {
         <hr className="dark:border-gray-800" />
         <div className="px-2 flex flex-col h-full overflow-y-scroll">
           <div className="flex w-full py-2 dark:text-white">Archived</div>
-          {data?.users?.map((ele, ind) => (
+          {contacts?.users?.map((ele, ind) => (
             <div
               key={ind}
               className={
@@ -80,7 +80,7 @@ const AllChats = () => {
         </div>
       </div>
       <div className="w-full h-full bg-bgprimary ">
-        {chat !== -1 && <Chat ele={data?.users[chat]} />}
+        {chat !== -1 && <Chat ele={contacts?.users[chat]} />}
         {chat == -1 && <Hero />}
       </div>
       <div className="absolute bottom-5 right-5"> </div>

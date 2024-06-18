@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef } from "react";
-import propTypes from "prop-types";
 import Triangle from "./shared/Triangle";
 import { UserContext } from "../context";
 

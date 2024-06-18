@@ -5,7 +5,7 @@ import { getUser } from "../../graphql/quaries";
 
 const useGetUser = () => {
   const [user, setUser] = useState(null);
-  const [getuser] = useLazyQuery(getUser, {
+  const [getuser, { loading }] = useLazyQuery(getUser, {
     onCompleted: (data) => setUser({ ...data.getUser }),
   });
   useEffect(() => {
@@ -21,7 +21,7 @@ const useGetUser = () => {
     };
     start();
   }, []);
-  return [user, setUser];
+  return [user, setUser, loading];
 };
 
 export default useGetUser;

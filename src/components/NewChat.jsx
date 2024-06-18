@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { FaUserGroup } from "react-icons/fa6";
 
@@ -9,10 +9,13 @@ const NewChat = ({ setMenu }) => {
     console.log(group.name);
   };
   const handleNewChat = () => {
-    console.log(name.name+"@gmail.com");
+    console.log(name.name + "@gmail.com");
   };
   return (
-    <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col dark:text-white">
+    <div
+      id="new-chat"
+      className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col dark:text-white"
+    >
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
         <div
           className="flex gap-5 items-end cursor-pointer"
@@ -41,7 +44,10 @@ const NewChat = ({ setMenu }) => {
           />
           <label className="p-2 w-fit">@gmail.com</label>
         </div>
-        <button className="bg-green-500 py-2 px-4 my-2 hover:translate-y-2" onClick={handleNewChat}>
+        <button
+          className="bg-green-500 py-2 px-4 my-2 hover:translate-x-2 rounded-lg"
+          onClick={handleNewChat}
+        >
           Start Chat
         </button>
       </div>
@@ -56,7 +62,7 @@ const NewChat = ({ setMenu }) => {
           }
         />
         <button
-          className="bg-green-500 py-2 px-4 my-2 hover:translate-y-2"
+          className="bg-green-500 py-2 px-4 my-2 hover:translate-x-2 rounded-lg"
           onClick={handleNewGroup}
         >
           Join

@@ -7,10 +7,12 @@ import Calender from "./components/shared/Calender";
 import { UserContext } from "./context";
 import ProtectedComponent from "./components/ProtectedComponent";
 import useGetUser from "./hooks/useGetUser";
+import StartPage from "./components/StartPage";
 
 const App = () => {
   useSetTheme();
-  const [user, setUser] = useGetUser();
+  const [user, setUser, loading] = useGetUser();
+  if (loading) return <StartPage />;
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <div className="">
