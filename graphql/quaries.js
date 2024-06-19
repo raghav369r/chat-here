@@ -7,6 +7,16 @@ export const signInUser = gql`
     }
   }
 `;
+
+export const searchUsers = gql`
+  query SearchUsers($userName: String!) {
+    emails: searchUsers(userName: $userName) {
+      email
+      id
+    }
+  }
+`;
+
 export const getUser = gql`
   query Query($getUserId: ID!) {
     getUser(id: $getUserId) {
@@ -22,13 +32,31 @@ export const getUser = gql`
 `;
 
 export const getAllUsers = gql`
-  query GetAllUsers {
-    users: getAllUsers {
-      id
-      firstName
-      lastName
-      email
-      createdAt
+  query GetAllInteractions {
+    users: getAllInteractions {
+      isGroup
+      contactId
+      lastInteracted
+      lastReadMessage
+      unReadMessages
+      lastReadMessage
+      typing
+      user {
+        id
+        firstName
+        lastName
+        email
+        createdAt
+        about
+        profileURL
+      }
+      chat {
+        id
+        message
+        senderId
+        receiverId
+        createdAt
+      }
     }
   }
 `;

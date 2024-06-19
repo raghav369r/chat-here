@@ -3,24 +3,25 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdSend } from "react-icons/io";
 import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
-import Messages from "./Messages";
 import { useEffect, useState } from "react";
-import useGetUserChat from "../hooks/useGetUserChat";
-import useGetIsTyping from "../hooks/useGetIsTyping";
 import { MAX_SIZE } from "../utils/constants";
+import useGetIsTyping from "../hooks/useGetIsTyping";
+import Messages from "./Messages";
+import { useMutation } from "@apollo/client";
+import { sendMessage } from "../../graphql/mutations";
 
-const Chat = ({ ele }) => {
-  const [messages, setMessages, sendmsg] = useGetUserChat({ ele });
+const Chat = ({ ele, addmessage }) => {
   const [isTyping, setIamTyping] = useGetIsTyping({ ele });
   const [msg, setMsg] = useState("");
   const [size, setSize] = useState(0);
   const [iamtyping, setIamtyping] = useState(false);
+  const [sendmsg, { data, error, loading }] = useMutation(sendMessage);
   const handleSend = async () => {
     if (!msg) return;
     const res = await sendmsg({
-      variables: { newMsg: { message: msg, receiverId: ele.id } },
+      variables: { newMsg: { message: msg, receiverId: ele.user.id } },
     });
-    // console.log("res: ", res);
+    addmessage(res?.data?.sendMessage,false);
     setMsg("");
     setSize(0);
   };
@@ -35,6 +36,7 @@ const Chat = ({ ele }) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleSend]);
+
   const handleChange = (e) => {
     const { value } = e.target;
     if (value.length > 190) return;
@@ -42,11 +44,11 @@ const Chat = ({ ele }) => {
     setMsg(value);
     if (value != "" && iamtyping != true) {
       setIamtyping(true);
-      setIamTyping({ variables: { receiverId: ele.id, istyping: true } });
+      // setIamTyping({ variables: { receiverId: ele?.user.id, istyping: true } });
     }
     if (value == "" && iamtyping) {
       setIamtyping(false);
-      setIamTyping({ variables: { receiverId: ele.id, istyping: false } });
+      // setIamTyping({ variables: { receiverId: ele?.user.id, istyping: false } });
     }
   };
 
@@ -58,7 +60,7 @@ const Chat = ({ ele }) => {
             <FaRegUser color="gray" className="size-6 opacity-50" />
           </div>
           <div>
-            <h1>{ele.firstName}</h1>
+            <h1>{ele?.user.firstName}</h1>
             {isTyping && <h1 className="text-xs">typing...</h1>}
           </div>
         </div>
@@ -68,7 +70,7 @@ const Chat = ({ ele }) => {
         </div>
       </div>
       <div className="h-full bg-neutral-100 dark:bg-bgdarkgreen overflow-y-scroll">
-        <Messages data={messages} />
+        <Messages data={ele?.chat} unRead={ele?.unReadMessages}/>
       </div>
       <div className="flex w-full gap-2 p-2 dark:bg-bghero items-center">
         <FaPlus className="size-10 p-2" color="gray" />

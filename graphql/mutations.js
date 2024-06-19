@@ -47,3 +47,32 @@ export const sendMessage = gql`
     }
   }
 `;
+export const addNewInteraction = gql`
+  mutation AddInteraction($newInt: interactionInput!) {
+    newInt: addInteraction(newInt: $newInt) {
+      userId
+      isGroup
+      contactId
+      lastInteracted
+      lastReadMessage
+      unReadMessages
+      typing
+      user {
+        id
+        firstName
+        lastName
+        email
+        createdAt
+        about
+        profileURL
+      }
+      chat {
+        id
+        message
+        senderId
+        receiverId
+        createdAt
+      }
+    }
+  }
+`;

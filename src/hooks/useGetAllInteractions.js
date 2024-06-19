@@ -1,12 +1,20 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { getAllUsers } from "../../graphql/quaries";
+import { useEffect, useState } from "react";
 
 const useGetAllInteractions = () => {
-  // const { data: contacts, error, loading } = useQuery(getAlluNg);
-
-    const { data: contacts, error, loading } = useQuery(getAllUsers);
-  //   const { data: groups, error: _, loading: __ } = useQuery(getAllGroups);
-  return { contacts };
+  const [contacts, setContacts] = useState([]);
+  const [getUsers, { data, error, loading }] = useLazyQuery(getAllUsers, {
+    onCompleted: ({ users }) => {
+      console.log("re-fetched users");
+      setContacts(users);
+    },
+  });
+  useEffect(() => {
+    getUsers();
+  }, []);
+  // console.log(contacts);
+  return { contacts, error, loading, setContacts };
 };
 
 export default useGetAllInteractions;
