@@ -15,8 +15,10 @@ const AllChats = () => {
   const [cat, setCat] = useState(0);
   const [chat, setChat] = useState(-1);
   const [menu, setMenu] = useState("");
-  const { contacts, error, loading, setContacts } = useGetAllInteractions();
-  const addNewMessage = (msg, isReceived) => {
+  const { contacts, error, loading, setContacts, getIntraction } =
+    useGetAllInteractions();
+
+  const addNewMessage = async (msg, isReceived) => {
     if (!msg) return;
     var addedcontacts = contacts.map((contact) => ({
       ...contact,
@@ -25,15 +27,27 @@ const AllChats = () => {
     var ind;
     if (isReceived) {
       ind = addedcontacts.findIndex((ele) => ele.contactId == msg.senderId);
-      if (addedcontacts[ind].unReadMessages == null)
-        addedcontacts[ind].unReadMessages = 1;
-      else addedcontacts[ind].unReadMessages += 1;
+      if (ind == -1) {
+        const { data } = await getIntraction({
+          variables: { id: msg.senderId },
+        });
+        if (data?.getIntraction) {
+          addedcontacts.unshift({ ...data.getIntraction });
+          addedcontacts[0].unReadMessages = 1;
+        }
+        setContacts(addedcontacts);
+        return;
+      } else {
+        if (addedcontacts[ind]?.unReadMessages == null)
+          addedcontacts[ind].unReadMessages = 1;
+        else addedcontacts[ind].unReadMessages += 1;
+      }
     } else
       ind = addedcontacts.findIndex((ele) => ele.contactId == msg.receiverId);
     addedcontacts[ind].chat.push(msg);
-    // console.log(addedcontacts[ind]);
     setContacts(addedcontacts);
   };
+
   useMessageSubscription(addNewMessage);
   const category = ["All", "Unread", "Groups"];
   console.log("rendered");

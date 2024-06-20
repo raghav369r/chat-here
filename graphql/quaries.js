@@ -1,5 +1,42 @@
 import { gql } from "@apollo/client";
 
+export const getNewInteraction = gql`
+  query GetIntraction($id: ID!) {
+    getIntraction(id: $id) {
+      userId
+      isGroup
+      contactId
+      lastInteracted
+      lastReadMessage
+      unReadMessages
+      typing
+      user {
+        id
+        id
+        firstName
+        lastName
+        email
+        createdAt
+        about
+        profileURL
+        firstName
+        lastName
+        email
+        createdAt
+        about
+        profileURL
+      }
+      chat {
+        id
+        message
+        senderId
+        receiverId
+        createdAt
+      }
+    }
+  }
+`;
+
 export const signInUser = gql`
   query SignInUser($user: signIn) {
     data: signInUser(user: $user) {
