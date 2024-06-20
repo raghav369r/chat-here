@@ -9,7 +9,7 @@ import { removeJwt } from "../services/local";
 import { UserContext } from "../context/index";
 
 const Settings = ({ setMenu }) => {
-  const { setUser } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   const [theme, setTheme] = useState(false);
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col ">
@@ -38,9 +38,9 @@ const Settings = ({ setMenu }) => {
               className="size-6 hidden absolute group-hover:flex flex-col justify-center items-center"
             />
           </div>
-          <div className="text-sm text-gray-600">
-            <h1>Raghav</h1>
-            <p>No guts No glory</p>
+          <div className="text-gray-400 font-semibold">
+            <h1 className="mb-1">{user?.firstName}</h1>
+            <p className="text-sm">{user?.about}</p>
           </div>
         </div>
         <ul className="dark:text-white">

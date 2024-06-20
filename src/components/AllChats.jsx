@@ -107,16 +107,16 @@ const AllChats = () => {
                 (chat === ind ? "bg-bgprimary dark:bg-bghero" : "")
               }
             >
-              {ele.unReadMessages && (
-                <div className="text-xs absolute h-full right-3 top-0 flex flex-col items-center justify-center gap-1">
-                  <p className="text-gray-600">
-                    {getTime(ele?.chat.at(-1)?.createdAt)}
-                  </p>
+              <div className="text-xs absolute h-full right-3 top-0 flex flex-col items-center justify-center gap-1">
+                <p className="text-gray-600">
+                  {getTime(ele?.chat.at(-1)?.createdAt)}
+                </p>
+                {ele?.unReadMessages && (
                   <p className="flex items-center justify-center p-2 rounded-full size-6 bg-green-600 text-white font-semibold">
                     {ele.unReadMessages}
                   </p>
-                </div>
-              )}
+                )}
+              </div>
               <div className="flex gap-4 items-center">
                 <div className="w-16">
                   <div className="size-14 bg-neutral-300 dark:bg-bghero rounded-full cursor-pointer flex-center ">
@@ -139,6 +139,7 @@ const AllChats = () => {
               </div>
             </div>
           ))}
+          <div className="border-t dark:border-gray-800 w-full"></div>
         </div>
       </div>
       <div className="w-full h-full bg-bgprimary ">

@@ -23,8 +23,13 @@ export const updateAbout = gql`
 export const updateProfile = gql`
   mutation UpdateNameNAbout($name: String, $about: String) {
     updateNameNAbout(name: $name, about: $about) {
+      id
       firstName
+      lastName
+      email
+      createdAt
       about
+      profileURL
     }
   }
 `;

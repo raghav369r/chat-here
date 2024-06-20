@@ -5,7 +5,8 @@ export default {
     extend: {
       fontFamily: { local: '"Kanit"' },
       colors: {
-        bgprimary: "#e7e7f0",
+        // bgprimary: "#e7e7f0",
+        bgprimary: "#F0F2F5",
         bghero: "#222e35",
         bgdarkgreen: "#0C1301",
         bgdark: "#0a1014",
