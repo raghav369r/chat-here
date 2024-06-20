@@ -47,7 +47,14 @@ const AllChats = () => {
     addedcontacts[ind].chat.push(msg);
     setContacts(addedcontacts);
   };
-
+  const getTime = (date) => {
+    let dateObj = new Date(date);
+    let timeWithoutSeconds = dateObj.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return timeWithoutSeconds;
+  };
   useMessageSubscription(addNewMessage);
   const category = ["All", "Unread", "Groups"];
   console.log("rendered");
@@ -101,9 +108,14 @@ const AllChats = () => {
               }
             >
               {ele.unReadMessages && (
-                <span className="text-sm absolute flex items-center justify-center -translate-y-1/2 p-2 top-1/2 right-3 rounded-full size-8 bg-green-600 text-white font-semibold">
-                  {ele.unReadMessages}
-                </span>
+                <div className="text-xs absolute h-full right-3 top-0 flex flex-col items-center justify-center gap-1">
+                  <p className="text-gray-600">
+                    {getTime(ele?.chat.at(-1)?.createdAt)}
+                  </p>
+                  <p className="flex items-center justify-center p-2 rounded-full size-6 bg-green-600 text-white font-semibold">
+                    {ele.unReadMessages}
+                  </p>
+                </div>
               )}
               <div className="flex gap-4 items-center">
                 <div className="w-16">
@@ -120,7 +132,9 @@ const AllChats = () => {
                   <h1 className="font-semibold text-neutral-600 dark:text-white">
                     {ele.user.firstName}
                   </h1>
-                  <p className="text-sm text-neutral-500">some message</p>
+                  <p className="text-sm text-neutral-500">
+                    {ele?.chat.at(-1)?.message}
+                  </p>
                 </div>
               </div>
             </div>
