@@ -9,7 +9,8 @@ const Messages = ({ data, unRead }) => {
   const unReadRef = useRef(null);
   useEffect(() => {
     if (unReadRef.current) {
-      unReadRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      unReadRef.current.scrollIntoView({ behavior: "smooth" });
+      // unReadRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     } else if (view.current) {
       view.current.scrollIntoView({ behavior: "smooth" });
     }

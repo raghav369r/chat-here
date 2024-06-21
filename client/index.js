@@ -5,19 +5,20 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { getJwt } from "../src/services/local";
+import { BACKEND_URL } from "../src/utils/constants";
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    // uri: "ws://chat-app-backend-6yys.onrender.com/graphql",
-    url: "ws://localhost:3000/graphql",
+    // url: "ws://localhost:3000/graphql",
+    url: "wss://chat-app-backend-production-ee3b.up.railway.app/graphql",
     connectionParams: {
       Authorization: getJwt(),
     },
   })
 );
 const httpLink = createHttpLink({
-  // uri: "https://chat-app-backend-6yys.onrender.com/graphql",
-  uri: "http://localhost:3000/graphql",
+  // uri: "http://localhost:3000/graphql",
+  uri: "https://chat-app-backend-production-ee3b.up.railway.app/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

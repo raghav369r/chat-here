@@ -9,14 +9,14 @@ const NewChat = ({ setMenu, setContacts, setChat, contacts }) => {
   const [name, setName] = useState({ name: "", error: "", id: "" });
   const [group, setGroup] = useState({ name: "", error: "" });
   const [showUsers, setShowUsers] = useState(false);
-  const [searchUser, { data, loading, error }] = useLazyQuery(searchUsers);
-  const [newInteraction, {}] = useMutation(addNewInteraction);
+  const [searchUser, { data, loading: _, error }] = useLazyQuery(searchUsers);
+  const [newInteraction, { loading }] = useMutation(addNewInteraction);
   const nameRef = useRef(null);
   const handleNewGroup = () => {
-    console.log(group.name);
+    // console.log(group.name);
   };
   const handleNewChat = async () => {
-    console.log(name.name + "@gmail.com " + "id ", name.id);
+    // console.log(name.name + "@gmail.com " + "id ", name.id);
     if (!name.id) return;
     const ind = contacts?.findIndex((ele) => ele.contactId == name.id);
     if (ind != -1) setChat(ind);
@@ -97,7 +97,7 @@ const NewChat = ({ setMenu, setContacts, setChat, contacts }) => {
           className="bg-green-500 py-2 px-4 my-2 hover:translate-x-2 rounded-lg"
           onClick={handleNewChat}
         >
-          Start Chat
+          {loading ? "Loding..." : "Start Chat"}
         </button>
       </div>
       <div className="p-2 mb-2">
