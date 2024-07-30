@@ -1,7 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
 export const decodeToken = async (token) => {
-  
   var decoded = null;
   try {
     decoded = await jwtDecode(token);
@@ -33,7 +32,8 @@ export const currentTheme = () => {
   const theme = localStorage.getItem("theme");
   if (theme) return theme;
   const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return dark ? "dark" : "light";
+  // return dark ? "dark" : "light";
+  return "system";
 };
 
 export const setLocalTheme = (name) => {

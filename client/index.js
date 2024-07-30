@@ -9,16 +9,18 @@ import { BACKEND_URL } from "../src/utils/constants";
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    // url: "ws://localhost:3000/graphql",
-    url: "wss://chat-app-backend-production-ee3b.up.railway.app/graphql",
+    url: "ws://localhost:3000/graphql",
+    // url: "wss://chat-app-backend-production-ee3b.up.railway.app/graphql", //railway
+    // url: "wss://chat-app-backend-6yys.onrender.com/graphql", //render
     connectionParams: {
       Authorization: getJwt(),
     },
   })
 );
 const httpLink = createHttpLink({
-  // uri: "http://localhost:3000/graphql",
-  uri: "https://chat-app-backend-production-ee3b.up.railway.app/graphql",
+  uri: "http://localhost:3000/graphql",
+  // uri: "https://chat-app-backend-production-ee3b.up.railway.app/graphql",  //railway
+  // uri: "https://chat-app-backend-6yys.onrender.com/graphql", //render
 });
 
 const authLink = setContext((_, { headers }) => {
