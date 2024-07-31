@@ -8,7 +8,7 @@ const useGetAllInteractions = () => {
   const [getUsers, { data, error, loading }] = useLazyQuery(getAllUsers, {
     onCompleted: ({ users }) => {
       console.log("re-fetched users");
-      setContacts(users);
+      setContacts(users?.map((ele) => ({ ...ele })));
     },
   });
   useEffect(() => {

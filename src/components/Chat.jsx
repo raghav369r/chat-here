@@ -5,20 +5,18 @@ import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
 import { useEffect, useRef, useState } from "react";
 import { MAX_SIZE } from "../utils/constants";
-import useGetIsTyping from "../hooks/useGetIsTyping";
 import Messages from "./Messages";
 import { useMutation } from "@apollo/client";
-import { sendMessage } from "../../graphql/mutations";
+import { sendMessage, typing } from "../../graphql/mutations";
 import ContactInfo from "./ContactInfo";
 
 const Chat = ({ ele, addmessage }) => {
-  const [isTyping, setIamTyping] = useGetIsTyping({ ele });
   const [msg, setMsg] = useState("");
   const [size, setSize] = useState(0);
-  const [iamtyping, setIamtyping] = useState(false);
-  const [sendmsg, { data, error, loading }] = useMutation(sendMessage);
   const contactRef = useRef(null);
   const chatRef = useRef(null);
+  const [typingg] = useMutation(typing);
+  const [sendmsg] = useMutation(sendMessage);
   const handleSend = async () => {
     if (!msg) return;
     const res = await sendmsg({
@@ -27,7 +25,28 @@ const Chat = ({ ele, addmessage }) => {
     addmessage(res?.data?.sendMessage, false);
     setMsg("");
     setSize(0);
+    await typingg({
+      variables: { receiverId: ele?.contactId, istyping: false },
+    });
   };
+  useEffect(() => {
+    const handleBeforeUnload = async (event) => {
+      // Use navigator.sendBeacon for the request to ensure it completes before the window unloads
+      await typingg({
+        variables: { receiverId: ele?.contactId, istyping: false },
+      });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return async () => {
+      await typingg({
+        variables: { receiverId: ele?.contactId, istyping: false },
+      });
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
@@ -46,19 +65,36 @@ const Chat = ({ ele, addmessage }) => {
   const handleOpen = () => {
     contactRef.current.classList.add("w-1/2");
   };
+  let prevTO;
+  const setTyping = async (isVal) => {
+    if (!isVal) {
+      clearTimeout(prevTO);
+      prevTO = null;
+      await typingg({
+        variables: { receiverId: ele?.contactId, istyping: false },
+      });
+    } else {
+      if (!prevTO)
+        await typingg({
+          variables: { receiverId: ele?.contactId, istyping: true },
+        });
+      else {
+        clearTimeout(prevTO);
+        prevTO = null;
+      }
+      prevTO = setTimeout(async () => {
+        await typingg({
+          variables: { receiverId: ele?.contactId, istyping: false },
+        });
+      }, 10000);
+    }
+  };
   const handleChange = (e) => {
     const { value } = e.target;
+    setTyping(value.length);
     if (value.length > 190) return;
     setSize(value.length);
     setMsg(value);
-    if (value != "" && iamtyping != true) {
-      setIamtyping(true);
-      // setIamTyping({ variables: { receiverId: ele?.user.id, istyping: true } });
-    }
-    if (value == "" && iamtyping) {
-      setIamtyping(false);
-      // setIamTyping({ variables: { receiverId: ele?.user.id, istyping: false } });
-    }
   };
 
   return (
@@ -77,7 +113,7 @@ const Chat = ({ ele, addmessage }) => {
             </div>
             <div>
               <h1>{ele?.user.firstName}</h1>
-              {isTyping && <h1 className="text-xs">typing...</h1>}
+              {ele?.typing && <h1 className="text-xs">typing...</h1>}
             </div>
           </div>
           <div className="flex gap-5 px-4">

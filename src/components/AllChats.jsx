@@ -10,6 +10,7 @@ import TopNavbar from "./TopNavBar";
 import NewChat from "./NewChat";
 import useGetAllInteractions from "../hooks/useGetAllInteractions";
 import useMessageSubscription from "../hooks/useMessageSubscription";
+import useGetIsTyping from "../hooks/useGetIsTyping";
 
 const AllChats = () => {
   const [cat, setCat] = useState(0);
@@ -55,7 +56,13 @@ const AllChats = () => {
     });
     return timeWithoutSeconds;
   };
+  const setUserTyping = (senderId, istyping) => {
+    const updated = [...contacts];
+    const ind = updated.findIndex((ele) => ele.contactId == senderId);
+    updated[ind].typing = istyping;
+  };
   useMessageSubscription(addNewMessage);
+  useGetIsTyping(setUserTyping);
   const category = ["All", "Unread", "Groups"];
   console.log("rendered");
   return (
