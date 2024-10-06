@@ -8,14 +8,22 @@ import Menu from "./Menu";
 import propTypes from "prop-types";
 import { FaRegUser } from "react-icons/fa6";
 
-const TopNavbar = ({ menu, setMenu }) => {
+const TopNavbar = ({ menu, setMenu, profileURL }) => {
   return (
     <div className="flex w-full justify-between items-center p-2 bg-bgprimary dark:bg-bghero">
       <div
         className="size-10 rounded-full bg-neutral-400 cursor-pointer flex-center"
         onClick={() => setMenu("profile")}
       >
-        <FaRegUser color="gray" className="size-6 opacity-50" />
+        {profileURL ? (
+          <img
+            alt="profile"
+            src={profileURL}
+            className="h-full object-cover rounded-full"
+          />
+        ) : (
+          <FaRegUser color="gray" className="size-6 opacity-50" />
+        )}
       </div>
       <div className="flex gap-5 items-center ">
         <IoIosPeople

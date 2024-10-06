@@ -1,5 +1,5 @@
 import { IoSearch } from "react-icons/io5";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaRegUser } from "react-icons/fa6";
 import Chat from "./Chat";
 import Status from "./Status";
@@ -11,8 +11,10 @@ import NewChat from "./NewChat";
 import useGetAllInteractions from "../hooks/useGetAllInteractions";
 import useMessageSubscription from "../hooks/useMessageSubscription";
 import useGetIsTyping from "../hooks/useGetIsTyping";
+import { UserContext } from "../context";
 
 const AllChats = () => {
+  const { user } = useContext(UserContext);
   const [cat, setCat] = useState(0);
   const [chat, setChat] = useState(-1);
   const [menu, setMenu] = useState("");
@@ -66,7 +68,7 @@ const AllChats = () => {
   const category = ["All", "Unread", "Groups"];
   console.log("rendered");
   return (
-    <div className="flex h-[100vh] select-none bg-white dark:bg-bgchat">
+    <div className="flex h-[100dvh] select-none bg-white dark:bg-bgchat">
       <div className="relative flex flex-col w-1/2 min-w-[300px] max-w-[400px] h-full">
         {menu === "status" && <Status setMenu={setMenu} />}
         {menu === "profile" && <Profile setMenu={setMenu} />}
@@ -79,7 +81,7 @@ const AllChats = () => {
             setChat={setChat}
           />
         )}
-        <TopNavbar menu={menu} setMenu={setMenu} />
+        <TopNavbar menu={menu} setMenu={setMenu} profileURL={user.profileURL} />
         <div className="m-2 flex bg-bgprimary dark:bg-bghero rounded-lg items-center px-2">
           <IoSearch color="gray" className="ml-2" />
           <input
@@ -127,7 +129,15 @@ const AllChats = () => {
               <div className="flex gap-4 items-center">
                 <div className="w-16">
                   <div className="size-14 bg-neutral-300 dark:bg-bghero rounded-full cursor-pointer flex-center ">
-                    <FaRegUser color="gray" className="size-8 opacity-50" />
+                    {ele?.user?.profileURL ? (
+                      <img
+                        alt="profile"
+                        src={ele.user.profileURL}
+                        className="h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <FaRegUser color="gray" className="size-8 opacity-50" />
+                    )}
                   </div>
                 </div>
                 <div

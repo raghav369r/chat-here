@@ -18,9 +18,17 @@ const ContactInfo = ({ handleClose, user }) => {
         <div className="h-full flex flex-col gap-4">
           <div className="flex-center flex-col w-full p-4 bg-white dark:bg-bgchat shadow-lg">
             <div className="size-52 rounded-full bg-neutral-300 flex-center">
-              <RxAvatar className="size-44" color="gray" />
+              {user.profileURL ? (
+                <img
+                  alt="profile"
+                  src={user.profileURL}
+                  className="h-full object-cover rounded-full"
+                />
+              ) : (
+                <RxAvatar className="size-44" color="gray" />
+              )}
             </div>
-            <h1 className="text-lg">{user.firstName +" "+ user.lastName}</h1>
+            <h1 className="text-lg">{user.firstName + " " + user.lastName}</h1>
             <p>{user.email}</p>
           </div>
           <div className="p-5 bg-white dark:bg-bgchat shadow-lg">

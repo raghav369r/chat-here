@@ -63,6 +63,7 @@ const Chat = ({ ele, addmessage }) => {
     contactRef.current.classList.add("w-0");
   };
   const handleOpen = () => {
+    contactRef.current.classList.remove("w-0");
     contactRef.current.classList.add("w-1/2");
   };
   let prevTO;
@@ -100,7 +101,7 @@ const Chat = ({ ele, addmessage }) => {
   return (
     <div className="w-full flex">
       <div
-        className="w-full flex flex-col h-[100vh] select-text overflow-x-hidden"
+        className="w-full flex flex-col h-[100dvh] select-text overflow-x-hidden"
         ref={chatRef}
       >
         <div
@@ -109,7 +110,15 @@ const Chat = ({ ele, addmessage }) => {
         >
           <div className="flex items-center gap-4">
             <div className="size-10 rounded-full bg-neutral-300 flex-center">
-              <FaRegUser color="gray" className="size-6 opacity-50" />
+              {ele.user.profileURL ? (
+                <img
+                  alt="profile"
+                  src={ele.user.profileURL}
+                  className="h-full object-cover rounded-full"
+                />
+              ) : (
+                <FaRegUser color="gray" className="size-6 opacity-50" />
+              )}
             </div>
             <div>
               <h1>{ele?.user.firstName}</h1>
@@ -148,7 +157,7 @@ const Chat = ({ ele, addmessage }) => {
         </div>
       </div>
       <div
-        className="bg-bgprimary dark:bg-bghero transition-all duration-300 w-0 overflow-x-hidden h-[100vh]"
+        className="bg-bgprimary dark:bg-bghero transition-all duration-300 w-0 overflow-x-hidden h-[100dvh]"
         ref={contactRef}
       >
         <ContactInfo handleClose={handleClose} user={ele.user} />

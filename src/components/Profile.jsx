@@ -9,15 +9,20 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context";
 import { useMutation } from "@apollo/client";
 import { updateProfile } from "../../graphql/mutations";
+import useUploadPhoto from "../hooks/useUploadPhoto";
+import { uploadProfile } from "../services/backend";
 
 const Profile = ({ setMenu }) => {
   const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState({ show: false, name: user.firstName });
   const [about, setAbout] = useState({ show: false, about: user.about });
-  const [updateprofile, { data, error, loading }] = useMutation(updateProfile, {
-    onCompleted: (data) => setUser(data.updateNameNAbout),
+  const { error, image, imageUrl, getInputProps, getRootProps, revalidate } =
+    useUploadPhoto();
+  const [updateprofile] = useMutation(updateProfile, {
+    onCompleted: (data) =>
+      data.updateNameNAbout && setUser(data.updateNameNAbout),
   });
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const handleEnter = async (e) => {
       if (e.key === "Enter" && (name.show || about.show)) {
@@ -33,7 +38,17 @@ const Profile = ({ setMenu }) => {
       window.removeEventListener("keypress", handleEnter);
     };
   }, [name, about, updateprofile]);
-
+  //   setImageMenu((prev) => !prev);
+  // };
+  const uploadImage = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("image", image);
+    const res = await uploadProfile(formData);
+    setLoading(false);
+    if (res.imagen) setUser((prev) => ({ ...prev, profileURL: res.imagen }));
+    revalidate();
+  };
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full flex flex-col dark:text-white bg-white dark:bg-bgchat border-r border-gray-600">
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
@@ -47,15 +62,45 @@ const Profile = ({ setMenu }) => {
       </div>
       <div className="h-full overflow-y-scroll">
         <div className="bg-bgprimary dark:bg-bgchat p-5 flex justify-center">
-          <div className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex-center">
-            <FaRegUser color="gray" className="size-28 opacity-45" />
-            <div className="hidden absolute group-hover:flex flex-col justify-center items-center size-full">
+          <div
+            {...getRootProps()}
+            className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex-center"
+          >
+            <input {...getInputProps()} />
+            {!image && !user?.profileURL && (
+              <FaRegUser color="gray" className="size-28 opacity-45" />
+            )}
+            {!image && user.profileURL && (
+              <img
+                alt="profile"
+                src={user.profileURL}
+                className="h-full object-cover rounded-full"
+              />
+            )}
+            {image && (
+              <img
+                src={imageUrl}
+                className="absolute top-0 left-0 object-cover rounded-full h-full "
+              />
+            )}
+            <div className="hidden absolute z-[100] group-hover:flex flex-col justify-center items-center size-full">
               <FaCamera color="white" className="size-8" />
               <h1 className="text-center text-sm text-white">
                 CHANGE PROFILE PHOTO
               </h1>
             </div>
           </div>
+        </div>
+        <div className="w-full justify-center flex">
+          {image && !error && (
+            <button
+              className="px-4 py-2 rounded bg-green-600"
+              onClick={uploadImage}
+              disabled={loading}
+            >
+              {loading ? "Uploading" : "Upload"}
+            </button>
+          )}
         </div>
         <div className="px-5 py-3 shadow-lg ">
           <h1 className="text-green-800 text-sm pb-2 ">Your name</h1>
@@ -79,7 +124,7 @@ const Profile = ({ setMenu }) => {
             />
           </div>
         </div>
-        <div className="p-5 bg-bgprimary dark:bg-bgchat">
+        <div className="p-5 bg-bgprimary dark:bg-bgchat text-gray-600">
           This is not your username or pin. This name is visible to your
           contacts.
         </div>
@@ -125,3 +170,56 @@ Profile.propTypes = {
 };
 
 export default Profile;
+
+{
+  /* <div
+            className="relative size-44 rounded-full bg-neutral-300 group cursor-pointer flex-center"
+            onClick={handleProfileClick}
+          >
+            <img
+              src={imageUrl}
+              alt="img"
+              className="absolute top-0 left-0 object-cover rounded-full h-full "
+            /> */
+}
+{
+  /* {imageUrl ? (
+              <img
+                src={imageUrl}
+                className="absolute top-0 left-0 object-cover rounded-full h-full "
+              />
+            ) : (
+              <FaRegUser color="gray" className="size-28 opacity-45" />
+            )} */
+}
+{
+  /* <div className="hidden absolute group-hover:flex flex-col justify-center items-center size-full">
+              <FaCamera color="white" className="size-8" />
+              <h1 className="text-center text-sm text-white">
+                CHANGE PROFILE PHOTO
+              </h1>
+            </div> */
+}
+{
+  /* {imageMenu && (
+              <ul className="top-full py-2 absolute shadow-md flex flex-col justify-center items-center rounded bg-white dark:bg-bghero">
+                <li className="hover:bg-neutral-200 dark:hover:bg-bgdark px-4 py-1 w-full">
+                  View Photo
+                </li>
+                <li className="hover:bg-neutral-200 dark:hover:bg-bgdark px-4 py-1 w-full">
+                  Take Photo
+                </li>
+                <li
+                  className="hover:bg-neutral-200 dark:hover:bg-bgdark px-4 py-1 w-full"
+                  {...getRootProps()}
+                >
+                  <input {...getInputProps()} />
+                  <p>Upload Photo</p>
+                </li>
+                <li className="hover:bg-neutral-200 dark:hover:bg-bgdark px-4 py-1 w-full">
+                  Remove Photo
+                </li>
+              </ul>
+            )}
+          </div> */
+}
