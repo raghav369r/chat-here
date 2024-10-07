@@ -10,7 +10,10 @@ import { useMutation } from "@apollo/client";
 import { sendMessage, typing } from "../../graphql/mutations";
 import ContactInfo from "./ContactInfo";
 
+// used memo to not rerender this comp for changing menu in AllChats(par comp)
+// unwanted rereders while setting menu
 const Chat = ({ ele, addmessage }) => {
+  // console.log("Chat rerendered");
   const [msg, setMsg] = useState("");
   const [size, setSize] = useState(0);
   const contactRef = useRef(null);
@@ -114,7 +117,7 @@ const Chat = ({ ele, addmessage }) => {
                 <img
                   alt="profile"
                   src={ele.user.profileURL}
-                  className="h-full object-cover rounded-full"
+                  className="h-full w-full object-cover rounded-full"
                 />
               ) : (
                 <FaRegUser color="gray" className="size-6 opacity-50" />

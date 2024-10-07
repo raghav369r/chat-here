@@ -62,11 +62,12 @@ const AllChats = () => {
     const updated = [...contacts];
     const ind = updated.findIndex((ele) => ele.contactId == senderId);
     updated[ind].typing = istyping;
+    setContacts(updated);
   };
   useMessageSubscription(addNewMessage);
   useGetIsTyping(setUserTyping);
   const category = ["All", "Unread", "Groups"];
-  console.log("rendered");
+  // console.log("Allchats-rendered");
   return (
     <div className="flex h-[100dvh] select-none bg-white dark:bg-bgchat">
       <div className="relative flex flex-col w-1/2 min-w-[300px] max-w-[400px] h-full">
@@ -133,7 +134,7 @@ const AllChats = () => {
                       <img
                         alt="profile"
                         src={ele.user.profileURL}
-                        className="h-full object-cover rounded-full"
+                        className="h-full w-full object-cover rounded-full"
                       />
                     ) : (
                       <FaRegUser color="gray" className="size-8 opacity-50" />

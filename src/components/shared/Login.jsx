@@ -74,9 +74,9 @@ const Login = () => {
         </h2>
         {!isLogin && (
           <div>
-            <lablel className="text-sm translate-y-3 text-gray-400">
+            <label className="text-sm translate-y-3 text-gray-400">
               First Name
-            </lablel>
+            </label>
             <div className="flex items-center">
               <CgRename className="text-gray-400" />
               <input
@@ -91,9 +91,9 @@ const Login = () => {
         )}
         {!isLogin && (
           <div className="w-full">
-            <lablel className="text-sm translate-y-3 text-gray-400">
+            <label className="text-sm translate-y-3 text-gray-400">
               Last Name
-            </lablel>
+            </label>
             <div className="flex items-center">
               <CgRename className="text-gray-400" />
               <input
@@ -108,7 +108,7 @@ const Login = () => {
           </div>
         )}
         <div className="w-full">
-          <lablel className="text-sm translate-y-3 text-gray-400">Email</lablel>
+          <label className="text-sm translate-y-3 text-gray-400">Email</label>
           <div className="flex items-center">
             <AiOutlineUser className="text-gray-400" />
             <input
@@ -121,9 +121,9 @@ const Login = () => {
           </div>
         </div>
         <div className="w-full">
-          <lablel className="text-sm translate-y-3 text-gray-400">
+          <label className="text-sm translate-y-3 text-gray-400">
             Password
-          </lablel>
+          </label>
           <div className="w-full flex items-center">
             <MdOutlinePassword className="text-gray-400" />
             <input

@@ -2,8 +2,10 @@ import { useContext, useEffect, useRef } from "react";
 import Triangle from "./shared/Triangle";
 import { UserContext } from "../context";
 
+// used memo to make this comp not to re-render after typing every letter in chat(par comp)
+// unwanted rerendeing while typing
 const Messages = ({ data, unRead }) => {
-  // console.log(data);
+  // console.log("Messages re-rendered");
   const { user } = useContext(UserContext);
   const view = useRef(null);
   const unReadRef = useRef(null);
@@ -19,6 +21,7 @@ const Messages = ({ data, unRead }) => {
     <div className="container px-8 dark:text-white">
       {data?.map((ele, ind) => (
         <div key={ind}>
+          <DisplayTime date={ele.createdAt} prev={data[ind - 1]?.createdAt} />
           {unRead && ind == data.length - unRead && (
             <div className="flex justify-center" ref={unReadRef}>
               <h1 className="text-sm font-semibold text-gray-700  dark:text-white text-center py-2 px-4 rounded-full dark:bg-gray-700 bg-neutral-400">
@@ -75,3 +78,16 @@ export default Messages;
 //           {!data?.[ind - 1]?.s && ele.s && (
 //             <div className="triangleg mt-auto -translate-y-2 rotate-90 shadow-lg" />
 //           )}
+
+const DisplayTime = ({ date, prev }) => {
+  let fprev = new Date(prev)?.toDateString();
+  let fdate = new Date(date).toDateString();
+  if (fdate === fprev) return null;
+  return (
+    <div className="flex justify-center sticky top-0">
+      <span className="w-fit rounded-full px-4 py-1.5 text-black bg-neutral-400 dark:bg-gray-600">
+        {fdate}
+      </span>
+    </div>
+  );
+};

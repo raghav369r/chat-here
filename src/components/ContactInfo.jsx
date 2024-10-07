@@ -22,7 +22,7 @@ const ContactInfo = ({ handleClose, user }) => {
                 <img
                   alt="profile"
                   src={user.profileURL}
-                  className="h-full object-cover rounded-full"
+                  className="h-full w-full object-cover rounded-full"
                 />
               ) : (
                 <RxAvatar className="size-44" color="gray" />

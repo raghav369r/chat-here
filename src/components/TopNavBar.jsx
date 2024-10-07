@@ -19,7 +19,7 @@ const TopNavbar = ({ menu, setMenu, profileURL }) => {
           <img
             alt="profile"
             src={profileURL}
-            className="h-full object-cover rounded-full"
+            className="h-full w-full object-cover rounded-full"
           />
         ) : (
           <FaRegUser color="gray" className="size-6 opacity-50" />

@@ -36,7 +36,7 @@ const Settings = ({ setMenu }) => {
               <img
                 alt="profile"
                 src={user.profileURL}
-                className="h-full object-cover rounded-full"
+                className="h-full w-full object-cover rounded-full"
               />
             ) : (
               <FaRegUser color="gray" className="size-16 opacity-45" />
