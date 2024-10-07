@@ -32,11 +32,19 @@ const Settings = ({ setMenu }) => {
         </div>
         <div className="flex items-center p-3 gap-4">
           <div className="relative group size-24 bg-neutral-300 rounded-full flex-center cursor-pointer">
-            <FaRegUser color="gray" className="size-16 opacity-45" />
-            <FaCamera
+            {user.profileURL ? (
+              <img
+                alt="profile"
+                src={user.profileURL}
+                className="h-full object-cover rounded-full"
+              />
+            ) : (
+              <FaRegUser color="gray" className="size-16 opacity-45" />
+            )}
+            {/* <FaCamera
               color="white"
               className="size-6 hidden absolute group-hover:flex flex-col justify-center items-center"
-            />
+            /> */}
           </div>
           <div className="text-gray-400 font-semibold">
             <h1 className="mb-1">{user?.firstName}</h1>
@@ -44,7 +52,7 @@ const Settings = ({ setMenu }) => {
           </div>
         </div>
         <ul className="dark:text-white">
-          <Item name={"Account"} />
+          <Item name={"Account"} onClick={() => setMenu("profile")} />
           <Item name={"Privacy"} />
           <Item name={"Chats"} />
           <Item name={"Notifications"} />
@@ -74,9 +82,12 @@ const Settings = ({ setMenu }) => {
   );
 };
 
-const Item = ({ name }) => {
+const Item = ({ name, onClick }) => {
   return (
-    <li className="flex gap-5 w-full px-8 py-3 hover:bg-neutral-200 dark:hover:bg-bghero border-b dark:border-gray-700">
+    <li
+      className="flex gap-5 w-full px-8 py-3 hover:bg-neutral-200 dark:hover:bg-bghero border-b dark:border-gray-700"
+      onClick={onClick ? onClick : () => ""}
+    >
       <p>{name}</p>
     </li>
   );
