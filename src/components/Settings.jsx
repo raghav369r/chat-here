@@ -7,10 +7,15 @@ import Theme from "./shared/Theme";
 import { useContext, useState } from "react";
 import { removeJwt } from "../services/local";
 import { UserContext } from "../context/index";
+import ShowProfile from "./ShowProfile";
 
 const Settings = ({ setMenu }) => {
   const { setUser, user } = useContext(UserContext);
+  const [imageShow, setImageShow] = useState(false);
   const [theme, setTheme] = useState(false);
+  const handleClose = () => {
+    setImageShow((prev) => !prev);
+  };
   return (
     <div className="z-10 absolute top-0 left-0 w-full h-full bg-white dark:bg-bgchat flex flex-col ">
       <div className="h-[18vh] bg-green-600 dark:bg-bghero flex p-5">
@@ -31,7 +36,10 @@ const Settings = ({ setMenu }) => {
           />
         </div>
         <div className="flex items-center p-3 gap-4">
-          <div className="relative group size-24 bg-neutral-300 rounded-full flex-center cursor-pointer">
+          <div
+            className="relative group size-24 bg-neutral-300 rounded-full flex-center cursor-pointer"
+            onClick={handleClose}
+          >
             {user.profileURL ? (
               <img
                 alt="profile"
@@ -78,6 +86,13 @@ const Settings = ({ setMenu }) => {
           <h1>Log out</h1>
         </div>
       </div>
+      {imageShow && (
+        <ShowProfile
+          name={user.firstName}
+          profileUrl={user.profileURL}
+          close={handleClose}
+        />
+      )}
     </div>
   );
 };

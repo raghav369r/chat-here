@@ -8,7 +8,7 @@ import { UserContext } from "./context";
 import ProtectedComponent from "./components/ProtectedComponent";
 import useGetUser from "./hooks/useGetUser";
 import StartPage from "./components/StartPage";
-import PhotoUpload from "./components/PhotoUpload";
+import ShowProfile from "./components/ShowProfile";
 
 const App = () => {
   useSetTheme();
@@ -21,7 +21,6 @@ const App = () => {
           <Route path="/" element={<ProtectedComponent Home={Home} />} />
           <Route path="/cal" element={<Calender />} />
           <Route path="/load" element={<Loader />} />
-          <Route path="/test" element={<PhotoUpload/>}/>
         </Routes>
       </div>
     </UserContext.Provider>

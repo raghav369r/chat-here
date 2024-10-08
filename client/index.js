@@ -5,11 +5,11 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { getJwt } from "../src/services/local";
-import { BACKEND_URL } from "../src/utils/constants";
+import { BACKEND_URL_HTTP, BACKEND_URL_WS } from "../src/utils/constants";
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:3000/graphql",
+    url: `${BACKEND_URL_WS}/graphql`,
     // url: "wss://chat-app-backend-production-ee3b.up.railway.app/graphql", //railway
     // url: "wss://chat-app-backend-6yys.onrender.com/graphql", //render
     connectionParams: {
@@ -18,7 +18,7 @@ const wsLink = new GraphQLWsLink(
   })
 );
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/graphql",
+  uri: `${BACKEND_URL_HTTP}/graphql`,
   // uri: "https://chat-app-backend-production-ee3b.up.railway.app/graphql",  //railway
   // uri: "https://chat-app-backend-6yys.onrender.com/graphql", //render
 });

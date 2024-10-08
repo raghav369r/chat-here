@@ -1,10 +1,9 @@
 import axios from "axios";
 import { getJwt } from "../local";
+import { BACKEND_URL_HTTP } from "../../utils/constants";
 export const uploadProfile = async (formdata) => {
   const token = getJwt();
-  // const url = ` http://localhost:3000/uploadprofile`;
-  const url =
-    "https://chat-app-backend-production-ee3b.up.railway.app/uploadprofile";
+  const url = `${BACKEND_URL_HTTP}/uploadprofile`;
   try {
     const res = await axios.post(url, formdata, {
       headers: { Authorization: token },

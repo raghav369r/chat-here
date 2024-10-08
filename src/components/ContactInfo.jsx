@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
 import { MdBlock } from "react-icons/md";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { AiFillDislike } from "react-icons/ai";
+import ShowProfile from "./ShowProfile";
 
 const ContactInfo = ({ handleClose, user }) => {
+  const [profileShow, setProfileShow] = useState(false);
+  const handleImageClose = () => {
+    setProfileShow((prev) => !prev);
+  };
   return (
     <div className="flex flex-col h-full dark:text-white">
-      <div className="flex p-4 gap-5 h-fit">
+      <div className="flex p-4 gap-5 h-fit bg-white dark:bg-bgchat">
         <IoMdClose className="size-7" color="gray" onClick={handleClose} />
         <h1 className="text-lg text-gray-500 overflow-x-hidden">
           Contact info
@@ -17,7 +22,10 @@ const ContactInfo = ({ handleClose, user }) => {
       <div className="h-full overflow-y-scroll">
         <div className="h-full flex flex-col gap-4">
           <div className="flex-center flex-col w-full p-4 bg-white dark:bg-bgchat shadow-lg">
-            <div className="size-52 rounded-full bg-neutral-300 flex-center">
+            <div
+              className="size-52 rounded-full bg-neutral-300 flex-center"
+              onClick={handleImageClose}
+            >
               {user.profileURL ? (
                 <img
                   alt="profile"
@@ -54,6 +62,13 @@ const ContactInfo = ({ handleClose, user }) => {
           </div>
         </div>
       </div>
+      {profileShow && (
+        <ShowProfile
+          name={user.firstName}
+          profileUrl={user.profileURL}
+          close={handleImageClose}
+        />
+      )}
     </div>
   );
 };
