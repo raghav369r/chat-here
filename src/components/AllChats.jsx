@@ -62,10 +62,23 @@ const AllChats = () => {
     const updated = [...contacts];
     const ind = updated.findIndex((ele) => ele.contactId == senderId);
     updated[ind].typing = istyping;
-    setContacts(updated);
+    // setContacts(updated);
+    // if un commented both message and typing try to chage state at same time
+    // leading to missing out some messages beeing added to state concurrency problem
   };
   useMessageSubscription(addNewMessage);
   useGetIsTyping(setUserTyping);
+  const selectChat = (ind) => {
+    setChat((prev) => {
+      if (prev == -1) return ind;
+      setContacts((cts) =>
+        cts.map((ele, inx) =>
+          inx == prev ? { ...ele, unReadMessages: null } : { ...ele }
+        )
+      );
+      return ind;
+    });
+  };
   const category = ["All", "Unread", "Groups"];
   // console.log("Allchats-rendered");
   return (
@@ -79,7 +92,7 @@ const AllChats = () => {
             setMenu={setMenu}
             contacts={contacts}
             setContacts={setContacts}
-            setChat={setChat}
+            setChat={selectChat}
           />
         )}
         <TopNavbar menu={menu} setMenu={setMenu} profileURL={user.profileURL} />
@@ -144,7 +157,7 @@ const AllChats = () => {
                 <div
                   className="p-1 cursor-pointer w-full"
                   onClick={() => {
-                    setChat(ind);
+                    selectChat(ind);
                   }}
                 >
                   <h1 className="font-semibold text-neutral-600 dark:text-white">
