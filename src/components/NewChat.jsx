@@ -1,15 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { FaUserGroup } from "react-icons/fa6";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { searchUsers } from "../../graphql/quaries";
 import { addNewInteraction } from "../../graphql/mutations";
+import debounce from "../services/debounce";
 
 const NewChat = ({ setMenu, setContacts, setChat, contacts }) => {
   const [name, setName] = useState({ name: "", error: "", id: "" });
   const [group, setGroup] = useState({ name: "", error: "" });
   const [showUsers, setShowUsers] = useState(false);
   const [searchUser, { data, loading: _, error }] = useLazyQuery(searchUsers);
+  const debounceSearchUser = useCallback(debounce(searchUser, 500), [
+    searchUser,
+  ]);
   const [newInteraction, { loading }] = useMutation(addNewInteraction);
   const nameRef = useRef(null);
   const handleNewGroup = () => {
@@ -39,7 +43,7 @@ const NewChat = ({ setMenu, setContacts, setChat, contacts }) => {
     }
     setShowUsers(true);
     setName((prev) => ({ ...prev, name: e.target.value }));
-    searchUser({ variables: { userName: e.target.value } });
+    debounceSearchUser({ variables: { userName: e.target.value } });
   };
   const handleNameSelect = (details) => {
     const name = details.email.split("@")[0];

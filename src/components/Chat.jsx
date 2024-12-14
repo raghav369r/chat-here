@@ -3,17 +3,19 @@ import { CiSearch } from "react-icons/ci";
 import { IoMdSend } from "react-icons/io";
 import { FaPlus, FaRegUser } from "react-icons/fa6";
 import { BsEmojiSmile } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useRef, useState } from "react";
 import { MAX_SIZE } from "../utils/constants";
 import Messages from "./Messages";
 import { useMutation } from "@apollo/client";
 import { sendMessage, typing } from "../../graphql/mutations";
 import ContactInfo from "./ContactInfo";
+import { UserContext } from "../context";
 
 // used memo to not rerender this comp for changing menu in AllChats(par comp)
 // unwanted rereders while setting menu
-const Chat = ({ ele, addmessage }) => {
+const Chat = memo(({ ele, addmessage }) => {
   // console.log("Chat rerendered");
+  const { user } = useContext(UserContext);
   const [msg, setMsg] = useState("");
   const [size, setSize] = useState(0);
   const contactRef = useRef(null);
@@ -25,7 +27,16 @@ const Chat = ({ ele, addmessage }) => {
     const res = await sendmsg({
       variables: { newMsg: { message: msg, receiverId: ele.user.id } },
     });
-    addmessage(res?.data?.sendMessage, false);
+    addmessage(
+      {
+        message: msg,
+        receiverId: ele.user.id,
+        createdAt: new Date(),
+        id: new Date().toDateString(),
+        senderId: user.id,
+      },
+      false
+    );
     setMsg("");
     setSize(0);
     await typingg({
@@ -167,6 +178,6 @@ const Chat = ({ ele, addmessage }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Chat;

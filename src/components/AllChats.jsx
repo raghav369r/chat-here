@@ -41,7 +41,7 @@ const AllChats = () => {
         setContacts(addedcontacts);
         return;
       } else {
-        if (addedcontacts[ind]?.unReadMessages == null)
+        if (!addedcontacts[ind]?.unReadMessages)
           addedcontacts[ind].unReadMessages = 1;
         else addedcontacts[ind].unReadMessages += 1;
       }
@@ -73,7 +73,7 @@ const AllChats = () => {
       if (prev == -1) return ind;
       setContacts((cts) =>
         cts.map((ele, inx) =>
-          inx == prev ? { ...ele, unReadMessages: null } : { ...ele }
+          inx == prev ? { ...ele, unReadMessages: 0 } : { ...ele }
         )
       );
       return ind;
@@ -134,7 +134,7 @@ const AllChats = () => {
                 <p className="text-gray-600">
                   {getTime(ele?.chat.at(-1)?.createdAt)}
                 </p>
-                {ele?.unReadMessages && (
+                {!!ele?.unReadMessages && (
                   <p className="flex items-center justify-center p-2 rounded-full size-6 bg-green-600 text-white font-semibold">
                     {ele.unReadMessages}
                   </p>

@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
 import Triangle from "./shared/Triangle";
 import { UserContext } from "../context";
 
 // used memo to make this comp not to re-render after typing every letter in chat(par comp)
 // unwanted rerendeing while typing
-const Messages = ({ data, unRead }) => {
+const Messages = memo(({ data, unRead }) => {
   // console.log("Messages re-rendered");
   const { user } = useContext(UserContext);
   const view = useRef(null);
@@ -22,7 +22,7 @@ const Messages = ({ data, unRead }) => {
       {data?.map((ele, ind) => (
         <div key={ind}>
           <DisplayTime date={ele.createdAt} prev={data[ind - 1]?.createdAt} />
-          {unRead && ind == data.length - unRead && (
+          {!!unRead && ind == data.length - unRead && (
             <div className="flex justify-center" ref={unReadRef}>
               <h1 className="text-sm font-semibold text-gray-700  dark:text-white text-center py-2 px-4 rounded-full dark:bg-gray-700 bg-neutral-400">
                 {unRead} UNREAD MESSAGES
@@ -54,7 +54,7 @@ const Messages = ({ data, unRead }) => {
       <div ref={view} className="h-8" />
     </div>
   );
-};
+});
 
 export default Messages;
 

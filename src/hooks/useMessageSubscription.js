@@ -5,6 +5,7 @@ const useMessageSubscription = (addNewMessage) => {
   const { loading, variables, data } = useSubscription(SUB_MESSAGE, {
     onData: ({ data }) => {
       const msg = data?.data?.messageAdded;
+      console.log(msg);
       if (msg) addNewMessage(msg, true);
     },
   });
